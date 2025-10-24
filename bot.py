@@ -82,7 +82,7 @@ async def on_message(message: discord.Message):
             msgParts = message.content.split(" " , 1)
 
             if len(msgParts) != 2:
-                await bot.process_commands(message) 
+                await bot.process_commands(message)
             else:
                 await bot.process_commands(message)
 
