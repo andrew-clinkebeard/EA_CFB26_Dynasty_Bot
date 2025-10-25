@@ -42,9 +42,8 @@ async def exit(ctx):
     await bot.close()
 
 @bot.command()
-async def help(ctx):
+async def helpme(ctx):
     await ctx.send(f"{VALID_CMD_STR}")
-    await bot.close()
 
 @bot.command()
 async def restart(ctx):

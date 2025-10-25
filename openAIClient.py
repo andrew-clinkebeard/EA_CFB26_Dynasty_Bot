@@ -3,7 +3,7 @@ from openai import OpenAI
 from pdfCreation import create_pdf
 
 def gameRecap(world_guide, style_guide, persona_style, game_input, reportPath, reportName):
-    client = OpenAI(os.getenv("OPENAI_API_KEY"))
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     prompt = f"{world_guide} {style_guide} {persona_style} {game_input}"
     response = client.chat.completions.create(
         model="gpt-4o-mini",
