@@ -7,3 +7,5 @@ run follow from inside cloned folder from a command window
 python -m venv venv
 venv\Scripts\activate
 pip install -U discord.py python-dotenv
+pip install reportlab
+
