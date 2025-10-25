@@ -1,21 +1,21 @@
-#main file to handlie initial discord message and to send out pdf
-
-#version
-__version__ = "0.0.1.3" 
-
-
-#constants
-VALID_CMD_STR = "Valid commands are !recap, !recruit, !press, !rumor, and !fan"
-
-#globals
-filePath = ""
-
 #packages
 import os
+import sys
 import discord
+from datetime import datetime
 from discord.ext import commands
 from dotenv import load_dotenv
 import openAIClient
+import fileManager
+
+#version
+__version__ = "0.0.1.3"
+
+#constants
+VALID_CMD_STR = "Valid commands are !recap, !recruit, !press, !rumor, !reloadWorld, !exit and !fan"
+
+#globals
+filePath = ""
 
 #load tokens
 load_dotenv()
@@ -42,13 +42,35 @@ async def exit(ctx):
     await bot.close()
 
 @bot.command()
+async def helpme(ctx):
+    await ctx.send(f"{VALID_CMD_STR}")
+
+@bot.command()
+async def restart(ctx):
+    await bot.close() # Close the bot connection
+    fileManager.loadWorld()
+    bot.run(TOKEN)
+
+@bot.command()
+async def reloadWorld(ctx):
+    fileManager.loadWorld()
+    await ctx.send("World reloaded")
+
+@bot.command()
 async def hello(ctx):
     await ctx.send(f'Hello {ctx.author.display_name}! 👋')
 
 @bot.command()
 async def recap(ctx):
     global filePath
-    filePath = openAIClient.gameRecap()
+    # Get the current date and time
+    now = datetime.now()
+    # Format the datetime object into the desired string format
+    timestamp_str = now.strftime("%Y%m%d%H%M%S")
+    
+    #build recap name
+    recapName = "\\" + ctx.message.author.display_name + "_" + timestamp_str+  ".pdf"
+    filePath = openAIClient.gameRecap(fileManager.world_guide, fileManager.STYLE_GUIDES["game_recap.txt"], fileManager.PERSONALITIES["Carter_Langofrd.txt"], ctx.message.content, fileManager.reportDir, recapName)
     
 @bot.command()
 async def recruit(ctx):
@@ -82,33 +104,28 @@ async def on_message(message: discord.Message):
             msgParts = message.content.split(" " , 1)
 
             if len(msgParts) != 2:
-                await bot.process_commands(message) 
+                await bot.process_commands(message)
             else:
                 await bot.process_commands(message)
 
                 guild = bot.get_guild(1431022749047984302)  # Replace with your server ID
                 if guild:
                     target_channel = guild.get_channel(TARGET_CHANNEL_ID)
-                    if target_channel and len(filePath) != 0 :
+                    if target_channel and filePath :
                         # Create a discord.File object
                         file_to_send = discord.File(filePath)
                         await target_channel.send(file=file_to_send, content=f"@everyone Hot off the press from {message.author.mention}")
-                        #await target_channel.send(file=discord.File(r'C:\\Users\\Andrew Clinkenbeard\\Desktop\\8.jpg'))
                     else:
                         print("Target channel not found.")
                 else:
                     print("Guild not found.")
 
                 # Optionally reply to the user
-                await message.channel.send("Thanks! Your message has been sent to the admins. ✅")
+                await message.channel.send("Thanks! Your message has been sent to recaps channel!")
         else:
             print(f"Invalid Command by {message.author}")
             #respond to dm with invalid cmd name and list valid cmd names
             await message.channel.send("Commands must start with !. {VALID_CMD_STR}")
 
-    #not sure if we need or not, throws error rn
-    # Process other bot commands (so !commands still work)
-    #await bot.process_commands(message) 
-
-
+fileManager.loadWorld()
 bot.run(TOKEN)

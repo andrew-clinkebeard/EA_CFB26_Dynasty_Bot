@@ -1,16 +1,28 @@
-def gameRecap():
-    print("game")
-    filePath = r'C:\\Users\\Andrew Clinkenbeard\\Desktop\\8.jpg' #make pdf path eventually
+import os
+from openai import OpenAI
+from pdfCreation import create_pdf
+
+def gameRecap(world_guide, style_guide, persona_style, game_input, reportPath, reportName):
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    prompt = f"{world_guide} {style_guide} {persona_style} {game_input}"
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=5000
+    )
+    client.close()
+    print(response.choices[0].message.content)
+    filePath = create_pdf(response.choices[0].message.content, reportPath, reportName)
     return filePath
 
-def recruitSpotlight():
-    print("recruit")
+# def recruitSpotlight():
+#     print("recruit")
 
-def pressRelease():
-    print("press")
+# def pressRelease():
+#     print("press")
 
-def fanBlogs():
-    print("fanBlogs")
+# def fanBlogs()
+#     print("fanBlogs")
 
-def rumorMill():
-    print("rumor")
+# def rumorMill():
+#     print("rumor")
