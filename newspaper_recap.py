@@ -41,17 +41,19 @@ def create_newspaper_pdf(title, subtitle, author, recap_text, logo_path=None, fi
     frame_width = (letter[0] - doc.leftMargin - doc.rightMargin - 0.25 * inch) / 2
     frame_height = letter[1] - doc.topMargin - doc.bottomMargin
 
-    frame1 = Frame(doc.leftMargin, doc.bottomMargin, frame_width, frame_height, id='col1')
-    frame2 = Frame(doc.leftMargin + frame_width + 0.25 * inch, doc.bottomMargin, frame_width, frame_height, id='col2')
+    frame0 = Frame(doc.leftMargin,doc.topMargin,frame_width*2+.5, 2, id='col0')
+    frame1 = Frame(doc.leftMargin, doc.bottomMargin, frame_width, frame_height-2, id='col1')
+    frame2 = Frame(doc.leftMargin + frame_width + 0.25 * inch, doc.bottomMargin, frame_width, frame_height-2, id='col2')
 
-    template = PageTemplate(id='TwoCol', frames=[frame1, frame2], onPage=draw_background)
+    template = PageTemplate(id='TwoCol', frames=[frame0, frame1, frame2], onPage=draw_background)
     doc.addPageTemplates([template])
 
     # --- Story content ---
     story = []
     # Add logo at the top if provided
+    scale = .5
     if logo_path and os.path.exists(logo_path):
-        logo = Image(logo_path, width=2*inch, height=2*inch)  # adjust size as needed
+        logo = Image(logo_path, width=3*scale*inch, height=2*scale*inch)  # adjust size as needed
         logo.hAlign = 'CENTER'
         story.append(logo)
         story.append(Spacer(1, 12))
@@ -104,5 +106,5 @@ When the dust settled, Alabama’s sideline erupted in celebration, while Georgi
         recap_text=recap_text,
         logo_path=logo_path,
         filename=output_path,
-        background_color=HexColor("#FFFBEA")  # 🎨 Change this to any color (e.g. colors.lightgrey, colors.ivory)
+        background_color=HexColor("#EFEECE")  # 🎨 Change this to any color (e.g. colors.lightgrey, colors.ivory)
     )
