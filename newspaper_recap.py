@@ -9,7 +9,7 @@ from datetime import datetime
 from reportlab.lib.colors import HexColor
 import os
 
-def create_newspaper_pdf(title, subtitle, author, recap_text, logo_path=None, filename="recap_newspaper.pdf", background_color=colors.whitesmoke):
+def create_newspaper_pdf(title, subtitle, author, recap_text, logo_path=None,output_folder=".", background_color=colors.whitesmoke):
     
     # --- Callback: draw background on each page ---
     def draw_background(canvas, doc):
@@ -19,12 +19,15 @@ def create_newspaper_pdf(title, subtitle, author, recap_text, logo_path=None, fi
         canvas.restoreState()
 
     # --- Setup document ---
-    # Get the current date and time
+    # --- Timestamp ---
     now = datetime.now()
-    # Format the datetime object into the desired string format
     timestamp_str = now.strftime("%Y%m%d%H%M%S")
+
+    # --- Build folder + filename ---
+    final_filename = os.path.join(output_folder, f"Harrydbear_{timestamp_str}.pdf")
+
     doc = BaseDocTemplate(
-        filename = f"Harrydbear_{timestamp_str}.pdf",
+        final_filename,
         pagesize=letter,
         rightMargin=36, leftMargin=36,
         topMargin=36, bottomMargin=36
@@ -73,7 +76,7 @@ def create_newspaper_pdf(title, subtitle, author, recap_text, logo_path=None, fi
 
     # --- Build the PDF ---
     doc.build(story)
-    print(f"✅ Newspaper-style PDF created: {filename}")
+    print(f"✅ Newspaper-style PDF created: {final_filename}")
 
 
 # --- Example usage ---
@@ -100,16 +103,15 @@ When the dust settled, Alabama’s sideline erupted in celebration, while Georgi
 """
     
     logo_path = "logo_dynasty_tribune.png"  # <--- path to your saved logo image
-    output_folder = "Reports"
-    os.makedirs(output_folder, exist_ok=True)
-    output_path = os.path.join(output_folder, "recap_newspaper_with_logo.pdf")
+output_folder = "Reports"
+os.makedirs(output_folder, exist_ok=True)
 
-    create_newspaper_pdf(
-        title="Epic Showdown: Alabama vs Georgia Ends in Thriller",
-        subtitle="Back-and-forth battle sees heroic comeback in final minutes",
-        author="Harrison Dunham",
-        recap_text=recap_text,
-        logo_path=logo_path,
-        filename=output_path,
-        background_color=HexColor("#EFEECE")  # 🎨 Change this to any color (e.g. colors.lightgrey, colors.ivory)
-    )
+create_newspaper_pdf(
+    title="Epic Showdown: Alabama vs Georgia Ends in Thriller",
+    subtitle="Back-and-forth battle sees heroic comeback in final minutes",
+    author="Harrison Dunham",
+    recap_text=recap_text,
+    logo_path=logo_path,
+    output_folder=output_folder,   # <--- pass folder only
+    background_color=HexColor("#EFEECE")    # 🎨 Change this to any color (e.g. colors.lightgrey, colors.ivory)
+)
