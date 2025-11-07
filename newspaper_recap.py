@@ -1,6 +1,6 @@
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import (
-    SimpleDocTemplate, Paragraph, Spacer, Frame, PageTemplate, FrameBreak, Image
+    BaseDocTemplate, Paragraph, Spacer, Frame, PageTemplate, FrameBreak, Image
 )
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
@@ -23,7 +23,7 @@ def create_newspaper_pdf(title, subtitle, author, recap_text, logo_path=None, fi
     now = datetime.now()
     # Format the datetime object into the desired string format
     timestamp_str = now.strftime("%Y%m%d%H%M%S")
-    doc = SimpleDocTemplate(
+    doc = BaseDocTemplate(
         filename = f"Harrydbear_{timestamp_str}.pdf",
         pagesize=letter,
         rightMargin=36, leftMargin=36,
@@ -41,11 +41,10 @@ def create_newspaper_pdf(title, subtitle, author, recap_text, logo_path=None, fi
     frame_width = (letter[0] - doc.leftMargin - doc.rightMargin - 0.25 * inch) / 2
     frame_height = letter[1] - doc.topMargin - doc.bottomMargin
 
-    frame0 = Frame(doc.leftMargin,doc.topMargin,frame_width*2+.5, 2, id='col0')
-    frame1 = Frame(doc.leftMargin, doc.bottomMargin, frame_width, frame_height-2, id='col1')
-    frame2 = Frame(doc.leftMargin + frame_width + 0.25 * inch, doc.bottomMargin, frame_width, frame_height-2, id='col2')
+    frame1 = Frame(doc.leftMargin, doc.bottomMargin, frame_width, frame_height, id='col1')
+    frame2 = Frame(doc.leftMargin + frame_width + 0.25 * inch, doc.bottomMargin, frame_width, frame_height, id='col2')
 
-    template = PageTemplate(id='TwoCol', frames=[frame0, frame1, frame2], onPage=draw_background)
+    template = PageTemplate(id='TwoCol', frames=[frame1, frame2], onPage=draw_background)
     doc.addPageTemplates([template])
 
     # --- Story content ---
@@ -91,6 +90,12 @@ The fourth quarter will be talked about for years. Georgia reclaimed the lead wi
 
 Georgia’s final drive reached the Alabama 40-yard line, but a costly holding penalty pushed them back. On fourth and long, Beck’s pass was tipped at the line and intercepted by Kool-Aid McKinstry. The Tide crowd erupted. With less than a minute left, Milroe guided the offense into field goal range, and kicker Will Reichard drilled a 42-yarder as time expired.
 
+The fourth quarter will be talked about for years. Georgia reclaimed the lead with eight minutes left on a one-yard quarterback sneak. Alabama’s next possession stalled near midfield, and the Bulldogs seemed poised to seal the win. But momentum turned abruptly when Alabama linebacker Dallas Turner strip-sacked Beck, giving the Tide the ball deep in Georgia territory. Three plays later, Milroe punched it in himself, tying the game with under four minutes to go.
+
+Georgia’s final drive reached the Alabama 40-yard line, but a costly holding penalty pushed them back. On fourth and long, Beck’s pass was tipped at the line and intercepted by Kool-Aid McKinstry. The Tide crowd erupted. With less than a minute left, Milroe guided the offense into field goal range, and kicker Will Reichard drilled a 42-yarder as time expired.
+The fourth quarter will be talked about for years. Georgia reclaimed the lead with eight minutes left on a one-yard quarterback sneak. Alabama’s next possession stalled near midfield, and the Bulldogs seemed poised to seal the win. But momentum turned abruptly when Alabama linebacker Dallas Turner strip-sacked Beck, giving the Tide the ball deep in Georgia territory. Three plays later, Milroe punched it in himself, tying the game with under four minutes to go.
+
+Georgia’s final drive reached the Alabama 40-yard line, but a costly holding penalty pushed them back. On fourth and long, Beck’s pass was tipped at the line and intercepted by Kool-Aid McKinstry. The Tide crowd erupted. With less than a minute left, Milroe guided the offense into field goal range, and kicker Will Reichard drilled a 42-yarder as time expired.
 When the dust settled, Alabama’s sideline erupted in celebration, while Georgia’s players could only watch in stunned silence. It was a game defined by resilience, by players who refused to be denied, and by momentum swings that tested every ounce of composure. For Alabama, it was another chapter in a storied legacy. For Georgia, it was heartbreak—but perhaps the kind that fuels another championship run.
 """
     
