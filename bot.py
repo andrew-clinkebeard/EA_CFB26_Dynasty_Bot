@@ -12,7 +12,8 @@ import fileManager
 __version__ = "0.0.1.3"
 
 #constants
-VALID_CMD_STR = "Valid commands are !recap, !recruit, !press, !rumor, !reloadWorld, !exit and !fan"
+#VALID_CMD_STR = "Valid commands are !recap, !recruit, !press, !rumor, !reloadWorld, !exit and !fan"
+VALID_CMD_STR = "Valid commands are !recap"
 
 #globals
 filePath = ""

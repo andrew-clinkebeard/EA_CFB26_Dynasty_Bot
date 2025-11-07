@@ -9,7 +9,9 @@ from datetime import datetime
 from reportlab.lib.colors import HexColor
 import os
 
-def create_newspaper_pdf(title, subtitle, author, recap_text, logo_path=None,output_folder=".", background_color=colors.whitesmoke):
+def create_newspaper_pdf(title, subtitle, author, recap_text, output_folder=".", background_color=HexColor("#EFEECE")):
+    
+    logo_path = "./Graphics/logo_dynasty_tribune.png"
     
     # --- Callback: draw background on each page ---
     def draw_background(canvas, doc):
@@ -23,11 +25,8 @@ def create_newspaper_pdf(title, subtitle, author, recap_text, logo_path=None,out
     now = datetime.now()
     timestamp_str = now.strftime("%Y%m%d%H%M%S")
 
-    # --- Build folder + filename ---
-    final_filename = os.path.join(output_folder, f"Harrydbear_{timestamp_str}.pdf")
-
     doc = BaseDocTemplate(
-        final_filename,
+        output_folder,
         pagesize=letter,
         rightMargin=36, leftMargin=36,
         topMargin=36, bottomMargin=36
@@ -76,12 +75,13 @@ def create_newspaper_pdf(title, subtitle, author, recap_text, logo_path=None,out
 
     # --- Build the PDF ---
     doc.build(story)
-    print(f"✅ Newspaper-style PDF created: {final_filename}")
+    print(f"✅ Newspaper-style PDF created: {output_folder}")
+    return output_folder
 
 
 # --- Example usage ---
 if __name__ == "__main__":
-    recap_text = """Saturday night in Tuscaloosa delivered a clash worthy of the national spotlight. Alabama and Georgia entered Bryant-Denny Stadium with playoff implications on the line, and neither team disappointed. From the opening kickoff, the game had the rhythm of a heavyweight fight—each side landing blows, adjusting, and refusing to yield. In the end, Alabama escaped with a 31–28 victory that left fans breathless and pundits already debating where it ranks among the greatest matchups in recent SEC history.
+    recapText = """Saturday night in Tuscaloosa delivered a clash worthy of the national spotlight. Alabama and Georgia entered Bryant-Denny Stadium with playoff implications on the line, and neither team disappointed. From the opening kickoff, the game had the rhythm of a heavyweight fight—each side landing blows, adjusting, and refusing to yield. In the end, Alabama escaped with a 31–28 victory that left fans breathless and pundits already debating where it ranks among the greatest matchups in recent SEC history.
 
 The first quarter belonged to Georgia. Their defense came out suffocating, forcing an early turnover that set up a short field for quarterback Carson Beck. Two plays later, he found tight end Brock Bowers in the corner of the end zone for the game’s first score. Alabama’s offense struggled to find rhythm early, but the momentum shifted midway through the second quarter when Jalen Milroe connected on a deep post route to Jermaine Burton for a 65-yard touchdown. The play seemed to ignite the Crimson Tide offense and the crowd alike.
 
@@ -102,16 +102,14 @@ Georgia’s final drive reached the Alabama 40-yard line, but a costly holding p
 When the dust settled, Alabama’s sideline erupted in celebration, while Georgia’s players could only watch in stunned silence. It was a game defined by resilience, by players who refused to be denied, and by momentum swings that tested every ounce of composure. For Alabama, it was another chapter in a storied legacy. For Georgia, it was heartbreak—but perhaps the kind that fuels another championship run.
 """
     
-    logo_path = "logo_dynasty_tribune.png"  # <--- path to your saved logo image
-output_folder = "Reports"
-os.makedirs(output_folder, exist_ok=True)
+    output_folder = "Reports"
+    os.makedirs(output_folder, exist_ok=True)
 
-create_newspaper_pdf(
+    create_newspaper_pdf(
     title="Epic Showdown: Alabama vs Georgia Ends in Thriller",
     subtitle="Back-and-forth battle sees heroic comeback in final minutes",
     author="Harrison Dunham",
-    recap_text=recap_text,
-    logo_path=logo_path,
-    output_folder=output_folder,   # <--- pass folder only
+    recap_text=recapText,
+    output_folder=output_folder, 
     background_color=HexColor("#EFEECE")    # 🎨 Change this to any color (e.g. colors.lightgrey, colors.ivory)
-)
+    )
