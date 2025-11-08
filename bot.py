@@ -21,6 +21,8 @@ filePath = ""
 #load tokens
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
+DISCORD_SERVER = int(os.getenv("DISCORD_SERVER"))
+DISCORD_CHANNEL = int(os.getenv("DISCORD_CHANNEL"))
 
 # Set up bot with intents
 intents = discord.Intents.default()
@@ -29,9 +31,6 @@ intents.members = True
 intents.dm_messages = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
-
-# Replace this with your target channel ID
-TARGET_CHANNEL_ID = 1431123905304596510  # example: 128502034523456789   
 
 @bot.event
 async def on_ready():
@@ -71,7 +70,7 @@ async def recap(ctx):
     
     #build recap name
     recapName = "\\" + ctx.message.author.display_name + "_" + timestamp_str+  ".pdf"
-    filePath = openAIClient.gameRecap(fileManager.world_guide, fileManager.STYLE_GUIDES["game_recap.txt"], fileManager.PERSONALITIES["Carter_Langofrd.txt"], ctx.message.content, fileManager.reportDir, recapName)
+    filePath = await openAIClient.gameRecap(fileManager.world_guide, fileManager.STYLE_GUIDES["game_recap.txt"], fileManager.PERSONALITIES["Carter_Langofrd.txt"], ctx.message.content, fileManager.reportDir, recapName)
     
 @bot.command()
 async def recruit(ctx):
@@ -109,9 +108,9 @@ async def on_message(message: discord.Message):
             else:
                 await bot.process_commands(message)
 
-                guild = bot.get_guild(1431022749047984302)  # Replace with your server ID
+                guild = bot.get_guild(DISCORD_SERVER)  # Replace with your server ID
                 if guild:
-                    target_channel = guild.get_channel(TARGET_CHANNEL_ID)
+                    target_channel = guild.get_channel(DISCORD_CHANNEL)
                     if target_channel and filePath :
                         # Create a discord.File object
                         file_to_send = discord.File(filePath)
