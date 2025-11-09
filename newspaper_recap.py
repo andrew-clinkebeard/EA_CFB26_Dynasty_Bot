@@ -1,33 +1,29 @@
-from reportlab.lib.pagesizes import letter
 from reportlab.platypus import (
     BaseDocTemplate, Paragraph, Spacer, Frame, PageTemplate, FrameBreak, Image
 )
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
-from reportlab.lib import colors
 from datetime import datetime
 from reportlab.lib.colors import HexColor
 import os
 
 def create_newspaper_pdf(title, subtitle, author, recap_text, output_folder=".", background_color=HexColor("#EFEECE")):
-    
     logo_path = "./Graphics/logo_dynasty_tribune.png"
+    
+    #width , height in 1/72 of an inch increments
+    pageSize = (612,936) #custom page size to deal make report one page long
     
     # --- Callback: draw background on each page ---
     def draw_background(canvas, doc):
         canvas.saveState()
         canvas.setFillColor(background_color)
-        canvas.rect(0, 0, letter[0], letter[1], fill=1, stroke=0)
+        canvas.rect(0, 0, pageSize[0], pageSize[1], fill=1, stroke=0)
         canvas.restoreState()
-
+    
     # --- Setup document ---
-    # --- Timestamp ---
-    now = datetime.now()
-    timestamp_str = now.strftime("%Y%m%d%H%M%S")
-
     doc = BaseDocTemplate(
         output_folder,
-        pagesize=letter,
+        pagesize=pageSize,
         rightMargin=36, leftMargin=36,
         topMargin=36, bottomMargin=36
     )
@@ -40,8 +36,8 @@ def create_newspaper_pdf(title, subtitle, author, recap_text, output_folder=".",
     styles.add(ParagraphStyle(name='Body', fontName='Times-Roman', fontSize=11, leading=14, alignment=4))
 
     # --- Frames for 2-column layout ---
-    frame_width = (letter[0] - doc.leftMargin - doc.rightMargin - 0.25 * inch) / 2
-    frame_height = letter[1] - doc.topMargin - doc.bottomMargin
+    frame_width = (pageSize[0] - doc.leftMargin - doc.rightMargin - 0.25 * inch) / 2
+    frame_height = pageSize[1] - doc.topMargin - doc.bottomMargin
 
     frame1 = Frame(doc.leftMargin, doc.bottomMargin, frame_width, frame_height, id='col1')
     frame2 = Frame(doc.leftMargin + frame_width + 0.25 * inch, doc.bottomMargin, frame_width, frame_height, id='col2')
@@ -102,8 +98,8 @@ Georgia’s final drive reached the Alabama 40-yard line, but a costly holding p
 When the dust settled, Alabama’s sideline erupted in celebration, while Georgia’s players could only watch in stunned silence. It was a game defined by resilience, by players who refused to be denied, and by momentum swings that tested every ounce of composure. For Alabama, it was another chapter in a storied legacy. For Georgia, it was heartbreak—but perhaps the kind that fuels another championship run.
 """
     
-    output_folder = "Reports"
-    os.makedirs(output_folder, exist_ok=True)
+    output_folder = os.getcwd() + "\\test.pdf"
+    #os.makedirs(output_folder, exist_ok=True)
 
     create_newspaper_pdf(
     title="Epic Showdown: Alabama vs Georgia Ends in Thriller",
