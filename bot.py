@@ -1,8 +1,6 @@
 #packages
 import os
-import sys
 import discord
-from datetime import datetime
 from discord.ext import commands
 from dotenv import load_dotenv
 import openAIClient
@@ -13,10 +11,7 @@ __version__ = "0.0.1.3"
 
 #constants
 #VALID_CMD_STR = "Valid commands are !recap, !recruit, !press, !rumor, !reloadWorld, !exit and !fan"
-VALID_CMD_STR = "Valid commands are !recap"
-
-#globals
-filePath = ""
+VALID_CMD_STR = "Valid commands are !recap and !preview"
 
 #load tokens
 load_dotenv()
@@ -31,6 +26,29 @@ intents.members = True
 intents.dm_messages = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
+
+async def sendFile(ctx, filePath):
+    guild = bot.get_guild(DISCORD_SERVER)
+    if guild:
+        target_channel = guild.get_channel(DISCORD_CHANNEL)
+        if target_channel and filePath :
+            # Create a discord.File object
+            file_to_send = discord.File(filePath)
+            await target_channel.send(file=file_to_send, content=f"@everyone Hot off the press from {ctx.author.mention}")
+        else:
+            if target_channel:
+                print (f"Invlaid File Path {filePath}")
+                await ctx.channel.send(f"Invlaid File Path {filePath}")
+                return
+            else:
+                print("Target channel not found.")
+                await ctx.channel.send("Target channel not found.")
+                return
+    else:
+        print("Server not found.")
+        await ctx.channel.send("Server not found.")
+        return
+    await ctx.channel.send("Thanks! Your message has been sent to recaps channel!")
 
 @bot.event
 async def on_ready():
@@ -62,15 +80,25 @@ async def hello(ctx):
 
 @bot.command()
 async def recap(ctx):
-    global filePath
-    # Get the current date and time
-    now = datetime.now()
-    # Format the datetime object into the desired string format
-    timestamp_str = now.strftime("%Y%m%d%H%M%S")
-    
     #build recap name
-    recapName = "\\" + ctx.message.author.display_name + "_" + timestamp_str+  ".pdf"
-    filePath = await openAIClient.gameRecap(fileManager.world_guide, fileManager.STYLE_GUIDES["game_recap.txt"], fileManager.PERSONALITIES["Carter_Langofrd.txt"], ctx.message.content, fileManager.reportDir, recapName)
+    recapName = fileManager.createFileName(ctx)
+    
+    #generate content
+    filePath = await openAIClient.gameRecap(fileManager.world_guide, fileManager.STYLE_GUIDES["game_recap.txt"], fileManager.PERSONALITIES["Carter_Langofrd.txt"], ctx.message.content, recapName)
+    
+    #send the file
+    await sendFile(ctx, filePath)
+
+@bot.command()
+async def preview(ctx):
+    #build preview name
+    previewName = fileManager.createFileName(ctx)
+    
+    #generate content
+    filePath = await openAIClient.gamePreview(fileManager.world_guide, fileManager.STYLE_GUIDES["game_preview.txt"], fileManager.PERSONALITIES["RG3.txt"], ctx.message.content, previewName)
+    
+    #send the file
+    await sendFile(ctx, filePath)
     
 @bot.command()
 async def recruit(ctx):
@@ -107,21 +135,6 @@ async def on_message(message: discord.Message):
                 await bot.process_commands(message)
             else:
                 await bot.process_commands(message)
-
-                guild = bot.get_guild(DISCORD_SERVER)  # Replace with your server ID
-                if guild:
-                    target_channel = guild.get_channel(DISCORD_CHANNEL)
-                    if target_channel and filePath :
-                        # Create a discord.File object
-                        file_to_send = discord.File(filePath)
-                        await target_channel.send(file=file_to_send, content=f"@everyone Hot off the press from {message.author.mention}")
-                    else:
-                        print("Target channel not found.")
-                else:
-                    print("Guild not found.")
-
-                # Optionally reply to the user
-                await message.channel.send("Thanks! Your message has been sent to recaps channel!")
         else:
             print(f"Invalid Command by {message.author}")
             #respond to dm with invalid cmd name and list valid cmd names

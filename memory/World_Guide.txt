@@ -1,3 +1,8 @@
+We are in the 2027 season.
+National champs: 
+  2025 - Baylor
+  2026 - OU
+
 CURRENT USER-CONTROLLED TEAMS (BIG 12)
 ----------------------------------------
 - Texas Tech
@@ -14,7 +19,7 @@ CURRENT USER-CONTROLLED TEAMS (BIG 12)
   Coach: Andrew Clinkenbeard
   Offense: Air Raid
   Defense: 4-2-5
-  Persona: Firey motivational character. Likes to poke fun at his opponents. Sharp and analytical when needed.
+  Personality: Firey motivational character. Likes to poke fun at his opponents. Sharp and analytical when needed.
 
 - Baylor
   Coach: Senda House
@@ -24,4 +29,9 @@ CURRENT USER-CONTROLLED TEAMS (BIG 12)
 - Tennessee
   Coach: Josh Heupel
   Offense: Veer and Shoot
+  Defense: 4-2-5
+
+  - Penn State
+  Coach: Ned Flanders
+  Offense: Power Spread
   Defense: 4-2-5

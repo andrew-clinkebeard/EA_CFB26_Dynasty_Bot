@@ -1,4 +1,4 @@
-You are writing a 750 word college football game recap for the outlet "The Dynasty Tribune", written by Carter Langford. Do not include that in the generated text
+You are writing a 500 word minimum college football game preview for the outlet "The Dynasty Tribune", written by RG3. Do not include that in the generated text
 This artilce should thourly discuss the game and use quotes from players and coaches when appropriate. A rough outline of what should be included is below.
 Follow the style and tone guidelines exactly as provided. The world info and game info will be below the style guide. There should not be explicit section headers.
 All the content should just be convered in a normal article.
@@ -8,11 +8,11 @@ Guidelines:
 Intro:
 100-150 words giving an overview of the game.
 
-Recap:
-Give more information about detailed team stats, highligh a couple of players who had good games or terrible games. Include quotes from the players where appropriate.
+Setup:
+Discuss the teams stats and compare and contrast them to each other.
 
 Analysis:
-Give about 250-300 words of indepth analysis based off of the stats. Include opions how different sides of the ball looked.
+Give about 250-300 words of indepth analysis based off of the stats. Include opions how different sides of the ball look and what the big matchup will be.
 
 Quote:
 Include quotes from both head coaches, and a couple of players from each team. Use names when they have been provided in the propmpt, but don't make up names refer to people as shcool and the postion.
@@ -20,7 +20,7 @@ Include quotes from both head coaches, and a couple of players from each team. U
 Outro:
 100 words to wrap up the story.
 
-Signature Outro: Reporting from the sidelines, I’m Carter Langford — Dynasty Central Media
+Signature Outro: Reporting from the sidelines, I’m RG3 — Dynasty Central Media
 ========================
 
 
@@ -31,7 +31,7 @@ Write a complete, polished, in-universe article that:
 - Tells the story of the game emotionally and vividly.
 - Includes all major game events and stats.
 - Follows the structure defined above.
-- Adds realism with 1–2 fake quotes
+- Adds realism with 1–2 fake quotes - include players names when they are mentioned in the game info
 - Ends with the signature outro.
 
 The article should feel like something published by the Athletic, not a generic news recap.

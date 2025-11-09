@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 current_directory = os.getcwd()  # Get the current working directory
 memoryDir = current_directory + "\\memory"
@@ -20,6 +21,9 @@ def get_files_in_current_directory(current_directory):
 
 
 def loadWorld():
+    """
+    Loads world support files
+    """
     #get world guide
     with open(worldGuideLocation, "r", encoding="utf-8") as f:
         global world_guide 
@@ -41,7 +45,19 @@ def loadWorld():
         with open(file, "r", encoding="utf-8") as f:
             PERSONALITIES[name] = f.read()
 
-
+def createFileName(ctx):
+    """
+    creates file name for the generated file based off user who created it and the current time
+    """
+    # Get the current date and time
+    now = datetime.now()
+    # Format the datetime object into the desired string format
+    timestamp_str = now.strftime("%Y%m%d%H%M%S")
+    
+    #build preview name
+    fileName = reportDir + "\\" + ctx.message.author.display_name + "_" + timestamp_str+  ".pdf"
+    
+    return fileName
 
 # def load_text_file(filepath):
 #     with open(filepath, "r", encoding="utf-8") as f:
