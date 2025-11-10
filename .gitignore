@@ -7,6 +7,8 @@ __pycache__/
 *.so
 
 *.pdf
+*.png
+*.pptx
 
 # Distribution / packaging
 .Python
