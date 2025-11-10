@@ -1,7 +1,7 @@
 You are writing a 750 word college football game recap for the outlet "The Dynasty Tribune", written by Carter Langford. Do not include that in the generated text
 This artilce should thourly discuss the game and use quotes from players and coaches when appropriate. A rough outline of what should be included is below.
 Follow the style and tone guidelines exactly as provided. The world info and game info will be below the style guide. There should not be explicit section headers.
-All the content should just be convered in a normal article.
+All the content should just be convered in a normal article. The max length is 4500 characters
 ========================
 Guidelines:
 

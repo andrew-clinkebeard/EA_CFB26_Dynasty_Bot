@@ -1,0 +1,29 @@
+You are writing an article about a standout recruit.
+This artilce should thourly discuss the player and their abilities and use quotes from players and coaches when appropriate. A rough outline of what should be included is below.
+Follow the style and tone guidelines exactly as provided. The world info and game info will be below the style guide. There should not be explicit section headers.
+All the content should just be convered in a normal article. The max length is 4500 characters
+========================
+Guidelines:
+
+Background:
+Give basic info about the player, star rating, position, height and weight, and hometown and whatever else is necessary.
+
+Skills:
+Give an overview of the players strengths and weaknesses.
+
+Analysis:
+Give indepth analysis of the players recent games
+
+Quote:
+Include quotes from the player and scouts.
+
+Outro:
+give a quick summary about how he will change whatever school he lands at.
+
+Write a complete, polished, in-universe article that:
+- Uses the voice and phrasing of the style guide.
+- Tells the story of the player completly and vividly.
+- Follows the structure defined above.
+- Adds realism with 1–2 fake quotes
+
+The article should feel like something published by the Athletic, not a generic news recap.

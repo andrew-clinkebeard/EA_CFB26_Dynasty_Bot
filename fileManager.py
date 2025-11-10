@@ -1,12 +1,13 @@
 import os
 from datetime import datetime
 
-current_directory = os.getcwd()  # Get the current working directory
-memoryDir = current_directory + "\\memory"
-worldGuideLocation = memoryDir + "\\World_Guide.txt"
-personalitiesDir = memoryDir + "\\Personalities"
-styleDir = memoryDir + "\\Style Guides"
-reportDir = current_directory + "\\Reports"
+def check_directories(directory):
+    """
+    make sure directories exist before program runs
+    """
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    return directory
 
 def get_files_in_current_directory(current_directory):
     """
@@ -18,7 +19,6 @@ def get_files_in_current_directory(current_directory):
         if os.path.isfile(item_path):
             files.append(item_path)
     return files
-
 
 def loadWorld():
     """
@@ -59,40 +59,10 @@ def createFileName(ctx):
     
     return fileName
 
-# def load_text_file(filepath):
-#     with open(filepath, "r", encoding="utf-8") as f:
-#         return f.read()
-
-# # Load guides
-# world_guide = load_text_file("memory/world_guide.txt")
-
-# STYLE_GUIDES = {
-#     "dispatch": load_text_file("memory/style_guides/dynasty_dispatch.txt"),
-#     "greenstandard": load_text_file("memory/style_guides/green_standard.txt"),
-#     "boomersedge": load_text_file("memory/style_guides/boomers_edge.txt"),
-# }
-# Example usage:
-# current_directory = os.getcwd()  # Get the current working directory
-# memoryDir = current_directory + "\\memory"
-# personalitiesDir = memoryDir + "\\Personalities"
-# styleDir = memoryDir + "\\Style Guides"
-
-# file_list = get_files_in_current_directory(current_directory)
-# print("Files in the current directory:")
-# for file_name in file_list:
-#     print(file_name)
-
-# file_list = get_files_in_current_directory(personalitiesDir)
-# print("Files in the person directory:")
-# for file_name in file_list:
-#     print(file_name)
-    
-# file_list = get_files_in_current_directory(styleDir)
-# print("Files in the style directory:")
-# for file_name in file_list:
-#     print(file_name)
-
-# file_list = get_files_in_current_directory(memoryDir)
-# print("Files in the memory directory:")
-# for file_name in file_list:
-#     print(file_name)
+current_directory = os.getcwd()  # Get the current working directory
+memoryDir = check_directories(current_directory + "\\memory")
+worldGuideLocation = check_directories(memoryDir + "\\World_Guide.txt")
+personalitiesDir = check_directories(memoryDir + "\\Personalities")
+styleDir = check_directories(memoryDir + "\\Style Guides")
+reportDir = check_directories(current_directory + "\\Reports")
+imageDir = check_directories(reportDir + "\\Images")

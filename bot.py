@@ -102,7 +102,21 @@ async def preview(ctx):
     
 @bot.command()
 async def recruit(ctx):
-    await ctx.send(f'recruit {ctx.author.display_name}! 👋')
+    #build preview name
+    previewName = fileManager.createFileName(ctx)
+    
+    #generate content
+    filePath = await openAIClient.recruit_spotlight(
+        world_guide=fileManager.world_guide, 
+        article_style_guid=fileManager.STYLE_GUIDES["recruit_spotlight.txt"], 
+        picture_style_guide=fileManager.STYLE_GUIDES["recruit_spotlight.txt"], 
+        personality_guide=fileManager.PERSONALITIES["Pat_McAfee.txt"], 
+        user_input=ctx.message.content, 
+        report_name=previewName
+        )
+    
+    #send the file
+    await sendFile(ctx, filePath)
     
 @bot.command()
 async def press(ctx):
