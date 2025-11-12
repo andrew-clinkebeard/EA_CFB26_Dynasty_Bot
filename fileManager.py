@@ -1,6 +1,15 @@
 import os
 from datetime import datetime
 
+
+def format_time_fixed(seconds):
+    days, remainder = divmod(seconds, 86400)   # 86400 seconds in a day
+    hours, remainder = divmod(remainder, 3600) # 3600 seconds in an hour
+    minutes, secs = divmod(remainder, 60)      # 60 seconds in a minute
+    
+    return f"{int(days)} days, {int(hours)} hours, {int(minutes)} minutes, {secs:.2f} seconds"
+
+
 def check_directories(directory):
     """
     make sure directories exist before program runs

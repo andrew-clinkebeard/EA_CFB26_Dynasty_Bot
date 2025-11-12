@@ -3,6 +3,7 @@ import os
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
+import time
 import openAIClient
 import fileManager
 
@@ -62,6 +63,12 @@ async def exit(ctx):
 @bot.command()
 async def helpme(ctx):
     await ctx.send(f"{VALID_CMD_STR}")
+    
+@bot.command()
+async def uptime(ctx):
+    uptime_seconds = time.time() - start_time
+    time_string = fileManager.format_time_fixed(uptime_seconds)
+    await ctx.send(time_string)
 
 @bot.command()
 async def restart(ctx):
@@ -153,6 +160,6 @@ async def on_message(message: discord.Message):
             print(f"Invalid Command by {message.author}")
             #respond to dm with invalid cmd name and list valid cmd names
             await message.channel.send("Commands must start with !. {VALID_CMD_STR}")
-
+start_time= time.time()
 fileManager.loadWorld()
 bot.run(TOKEN)
