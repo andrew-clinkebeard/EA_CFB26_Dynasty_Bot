@@ -1,6 +1,5 @@
 import os
 from openai import AsyncOpenAI
-from openai import OpenAI
 from dotenv import load_dotenv
 import requests
 from newspaper_recap import create_newspaper_pdf
@@ -59,8 +58,8 @@ async def gamePreview(world_guide, style_guide, persona_style, user_input, repor
     filePath = create_newspaper_pdf("The Dynasty Tribune", subTitle, "RG3", article, report_name)
     return filePath
 
-def recruit_spotlight(world_guide, article_style_guid, picture_style_guide, personality_guide, user_input, report_name):
-    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+async def recruit_spotlight(world_guide, article_style_guid, picture_style_guide, personality_guide, user_input, report_name):
+    client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     prompt = f"{world_guide}\n{personality_guide}\n{article_style_guid}\n{user_input}"
      
     messages = [
@@ -107,10 +106,14 @@ if __name__ == "__main__":
     opponents visable if necessary. Setting is in a high school football stadium. Weather is location appropriate. Stadium lights and crowd in background. Slight depth blur for cinematic focus. use pose given at end.
     High detail, dramatic lighting. Avoid any content that may be considered inappropriate or offensive, ensuring the image aligns with content policies"""
     articleStyle = "write an article that includes the following. Background and high school performance. Strengths and playing style. Why they’re a good fit for the recruting team. Any notable achievements or comparisons. include Quotes from the kid and Quotes from the school reruiting him where appropriate. It should be a coherent article. The article should feel like something published by the Athletic."
+    person = """Pat MaCafee is a former kicker at West Virginia who played in the NFL for the Indianapolis Colts. One of the most brazen sports reporters who is undeniably himself. Despite being a national reporter for one of the biggest sports broadcasting networks ESecPN he often lets slightly vulgur and crude language slip in his quotes and always has fun with what he is doing. He loves when a kicker or punter makes a big play and always uses his catchphrase "For the brand" whenever a big play is made on special teams. Known to occasionally strip down and jump into a pool of water when he gets excited."""
+    image = os.getcwd() + "\\test.png"
     recruit_spotlight(
-        style_guid=articleStyle,
+        world_guide="go sports",
+        article_style_guid=articleStyle,
         picture_style_guide=pictureStyle,
+        personality_guide=person,
         user_input=prompt,
-        report_name=os.getcwd() + "\\test.png"
+        report_name=image
     )
     print("Image Done")

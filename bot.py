@@ -91,7 +91,13 @@ async def recap(ctx):
     recapName = fileManager.createFileName(ctx)
     
     #generate content
-    filePath = await openAIClient.gameRecap(fileManager.world_guide, fileManager.STYLE_GUIDES["game_recap.txt"], fileManager.PERSONALITIES["Carter_Langofrd.txt"], ctx.message.content, recapName)
+    filePath = await openAIClient.gameRecap(
+        world_guide=fileManager.world_guide, 
+        style_guide=fileManager.STYLE_GUIDES["game_recap.txt"], 
+        persona_style=fileManager.PERSONALITIES["Carter_Langofrd.txt"], 
+        game_input=ctx.message.content, 
+        reportName=recapName
+        )
     
     #send the file
     await sendFile(ctx, filePath)
@@ -102,7 +108,13 @@ async def preview(ctx):
     previewName = fileManager.createFileName(ctx)
     
     #generate content
-    filePath = await openAIClient.gamePreview(fileManager.world_guide, fileManager.STYLE_GUIDES["game_preview.txt"], fileManager.PERSONALITIES["RG3.txt"], ctx.message.content, previewName)
+    filePath = await openAIClient.gamePreview(
+        world_guide=fileManager.world_guide, 
+        style_guide=fileManager.STYLE_GUIDES["game_preview.txt"], 
+        persona_style=fileManager.PERSONALITIES["RG3.txt"], 
+        user_input=ctx.message.content, 
+        report_name=previewName
+        )
     
     #send the file
     await sendFile(ctx, filePath)
