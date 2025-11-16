@@ -149,6 +149,31 @@ async def fan(ctx):
 async def rumor(ctx):
     await ctx.send(f'rumor {ctx.author.display_name}! 👋')
 
+@bot.command()
+async def send(ctx):
+    cmdIndex = ctx.message.content.find('!')
+    if cmdIndex == 0:
+        #split command from rest of string
+        msgParts = ctx.message.content.split(" " , 1)
+        if len(msgParts) == 2:
+            guild = bot.get_guild(DISCORD_SERVER)
+            if guild:
+                target_channel = guild.get_channel(DISCORD_CHANNEL)
+                if target_channel :
+                    await target_channel.send(content=f"@everyone Hot off the press from {ctx.author.mention}:\n{msgParts[1]}")
+                else: 
+                    print("Target channel not found.")
+                    await ctx.channel.send("Target channel not found.")
+                    return
+            else:
+                print("Server not found.")
+                await ctx.channel.send("Server not found.")
+                return
+            await ctx.channel.send("Thanks! Your message has been sent to recaps channel!")
+        else:
+            print(f"ERROR: You messed up.\n {msgParts}, {len(msgParts)}")
+            await ctx.channel.send(f"ERROR: You messed up.\n {msgParts}, {len(msgParts)}")
+            return
 
 @bot.event
 async def on_message(message: discord.Message):
