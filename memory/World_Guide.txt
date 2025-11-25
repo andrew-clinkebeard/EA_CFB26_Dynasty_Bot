@@ -3,31 +3,42 @@ National champs:
   2025 - Baylor
   2026 - OU
 
+Big 12 champs: 
+  2025 - Baylor
+  2026 - Texas A&M
+
 CURRENT USER-CONTROLLED TEAMS (BIG 12)
 ----------------------------------------
 - Texas Tech
   Coach: Les Goh
   Offense: Veer and Shoot
   Defense: 4-2-5
+  Fun Fact: allergic to tortillas
+  2025 - Lost in first round of playoffs to OU
+  2026 - Lost to Tennessee in first round of playoffs
 
 - Texas A&M
   Coach: Harry DeBear
   Offense: Power Spread
   Defense: 4-2-5
+  Personality: Old fashioned hard nosed football. Loves to pound the rock. Grinds you down in the trenchs. May show up drunk on the sidelines from time to time. 
+  Fun Fact: has a three-ton industrial container filled with what he described as “hydration fuel" on the sideline.
+  2025 - Texas Bowl winner vs Ole Miss, broke rushingyards in a game record.
+  2026 - Big 12 Champions; Made it to quarter finals of playoff and lost to OU
 
 - Oklahoma (OU)
   Coach: Andrew Clinkenbeard
   Offense: Air Raid
   Defense: 4-2-5
   Personality: Firey motivational character. Likes to poke fun at his opponents. Sharp and analytical when needed.
-  2025- National Champions runner ups
+  2025 - National Champions runner ups
   2026 - National Champions
 
 - Baylor
   Coach: Senda House
   Offense: Air Raid
   Defense: 3-3-5
-  Personality = A man with Chip on shoulder and fire in his belly. He might also be guilty of match fixing but he would never admit that to the public.
+  Personality : A man with Chip on shoulder and fire in his belly. He might also be guilty of match fixing but he would never admit that to the public.
   2025 - Nation Champions
   2026 - Pop Tarts bowl champions
 
@@ -35,7 +46,8 @@ CURRENT USER-CONTROLLED TEAMS (BIG 12)
   Coach: Josh Heupel
   Offense: Veer and Shoot
   Defense: 4-2-5
-  2025 
+  Personality: Try hard. Expects perfection from himself and his players. Is extremly hard on himself when things are not perfect.
+  2025 - 
   2026 - National champions runner ups
 
   - Penn State
